@@ -1,0 +1,598 @@
+{% load static %}
+{% comment %}
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+    integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+  <!-- Medium Editor -->
+  <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css"
+    type="text/css" media="screen" charset="utf-8">
+
+  <!-- Custom Style -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
+  {% if title %}
+  <title>Blog - {{ title }}</title>
+  {% else %}
+  <title>Blog</title>
+  {% endif %}
+</head>
+
+<body>
+  <header class="site-header">
+    <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+      <div class="container">
+        <a class="navbar-brand mr-4" href="{% url 'index' %}">Blog</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
+          aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarToggle">
+          <div class="navbar-nav mr-auto">
+            <a class="nav-item nav-link" href="{% url 'index' %}">Home</a>
+            <a class="nav-item nav-link" href="{% url 'about' %}">About</a>
+          </div>
+          <!-- Navbar Right Side -->
+          <div class="navbar-nav">
+            {% if user.is_authenticated %}
+            <a class="nav-item nav-link" href="{% url 'post_create' %}">New Post</a>
+            <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+            <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+            {% else %}
+            <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+            <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main role="main" class="container">
+    <div class="row">
+      <div class="col-md-8">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+          {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% block content %}{% endblock %}
+      </div>
+      <div class="col-md-4">
+        <div class="content-section">
+          <h3>Our Sidebar</h3>
+          <p class='text-muted'>You can put any information here you'd like.
+            <ul class="list-group">
+              <li class="list-group-item list-group-item-light">Latest Posts</li>
+              <li class="list-group-item list-group-item-light">Announcements</li>
+              <li class="list-group-item list-group-item-light">Calendars</li>
+              <li class="list-group-item list-group-item-light">etc</li>
+            </ul>
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+  </script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+  </script>
+
+  <!-- Optional JavaScript -->
+  <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html> {% endcomment %}
+
+
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <title>Ai - Home</title>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <!--[if lte IE 8]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+  <!--[if lt IE 8]>
+			<script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE8.js"></script>
+		<![endif]-->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}" media="screen" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bxslider.css' %}" media="screen" />
+  <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" media="screen" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/adaptive.css' %}" media="screen" />
+</head>
+
+<body>
+  <header id="header">
+    <div class="siteHeader">
+      <div class="wrapper clear">
+        <a href="index.html" class="mobile-logo">
+          <img src="{% static 'images/logo.png' %}" alt="Ai img">
+        </a>
+        <ul class="mainMenu clear">
+          <li class="current-menu-item">
+            <a href="index.html">home</a>
+            <ul>
+              <li><a href="{% url 'index' %}">Home slider</a></li>
+              <li><a href="{% url 'index' %}">Home fullsize</a></li>
+              <li><a href="{% url 'index' %}">Home masonry</a></li>
+              <li><a href="{% url 'index' %}">Home grid</a></li>
+              <li><a href="{% url 'index' %}">Home list </a></li>
+              <li><a href="{% url 'index' %}">404 page</a></li>
+              <li><a href="{% url 'index' %}">Single post</a></li>
+            </ul>
+          </li>
+          <li><a href="{% url 'index' %}">lifestyle</a></li>
+          <li>
+            <a href="{% url 'index' %}">travel</a>
+            <ul>
+              <li><a href="#">Submenu one</a></li>
+              <li><a href="#">Submenu two</a></li>
+              <li><a href="#">Submenu three</a></li>
+              <li class="menu-item-has-children">
+                <a href="#">Submenu four</a>
+                <ul>
+                  <li><a href="#">Submenu one</a></li>
+                  <li><a href="#">Submenu two</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><a href="{% url 'index' %}">fashion</a></li>
+          <li><a href="{% url 'index' %}">inspiration</a></li>
+          <li><a href="{% url 'index' %}">about</a></li>
+          <li><a href="{% url 'index' %}">contact</a></li>
+        </ul>
+        <div class="pull-right clear">
+          <div class="headerSocialLinks clear">
+            <a href="#"><i class="fa fa-instagram"></i></a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-heart"></i></a>
+            <a href="#"><i class="fa fa-pinterest"></i></a>
+            <a href="#"><i class="fa fa-google-plus"></i></a>
+          </div>
+          <div class="searchIcon"></div>
+        </div>
+        <span class="showMobileMenu">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </div>
+    </div>
+    <a href="#" class="logo"><img src="{% static 'images/logo.png' %}" alt="Ai img"></a>
+  </header>
+  <section class="container">
+    <div class="wrapper clear">
+      <a href="single-post.html" class="homeV1MainPost">
+        <img src="{{ posts.0.image.url }}" alt="Ai img">
+        <div class="overlayBox">
+          <div class="homeV1PostDesc">
+            <div class="postTime">{{ posts.0.date_posted|date:"F d, Y" }}</div>
+            <h3>{{posts.0.title}}</h3>
+          </div>
+        </div>
+      </a>
+      <div class="homeV1PostGrid clear">
+        <a href="single-post.html" class="homeV1PostGridItem">
+          <img src="{{ posts.1.image.url }}" alt="Ai img">
+          <div class="overlayBox">
+            <div class="homeV1PostDesc">
+              <div class="postTime">{{ posts.1.date_posted|date:"F d, Y" }}</div>
+              <h3>{{posts.1.title}}</h3>
+            </div>
+          </div>
+        </a>
+        <a href="single-post.html" class="homeV1PostGridItemSmall">
+          <img src="{{ posts.2.image.url }}" alt="Ai img">
+          <div class="overlayBox">
+            <div class="homeV1PostDesc">
+              <div class="postTime">{{ posts.2.date_posted|date:"F d, Y" }}</div>
+              <h3>{{posts.2.title}}</h3>
+            </div>
+          </div>
+        </a>
+        <a href="single-post.html" class="homeV1PostGridItemSmall">
+          <img src="{{ posts.3.image.url }}" alt="Ai img">
+          <div class="overlayBox">
+            <div class="homeV1PostDesc">
+              <div class="postTime">{{ posts.3.date_posted|date:"F d, Y" }}</div>
+              <h3>{{posts.3.title}}</h3>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="clear"></div>
+      <!--
+        Ici commence le flux d'actualité
+      -->
+      <div class="contentLeft">
+        <div class="archivePostWrap">
+          {% for post in posts|slice:"4:500" %}
+          <div class="archivePostItem">
+            <div class="archivePostItemShareLinks" style="margin-bottom: 0!important;">
+              <img class="rounded-circle" src="{{ post.author.profile.image.url }}">
+              <div class="archivePostTime">{{ post.author }}</div>
+              <div class="archivePostTime">- {{ post.date_posted|date:"F d, Y" }}</div>
+            </div>
+
+            <h3 class="archivePostTitle"><a href="#">{{ post.title }}</a></h3>
+            <a href="#" class="archivePostCategory">Lifestyle</a>
+
+            <a href="single-post.html" class="archivePostImg">
+              <img src="{{ post.image.url }}" alt="Ai img">
+            </a>
+            <p>{{post.resume|safe}}</p>
+            <div class="archivePostItemMeta">
+
+              <a href="#" class="archivePostItemComments">{{post.comments.all|length}} commentaires -</a>
+              <div class="archivePostItemShareLinks">
+                <a href="#"><i class="fa fa-heart"></i></a>
+              </div>
+              <a href="single-post.html" class="archivePostReadMore">Read More</a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% if is_paginated %}
+        {% if page_obj.has_previous %}
+        <a href="?page=1">First</a>
+        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+        <a href="?page={{ num }}">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <a href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <div class="postPagination">
+          <ul class="clear">
+            <li class="newPosts"><a href="?page={{ page_obj.next_page_number }}">New posts</a></li>
+            <li class="olderPosts"><a href="?page={{ page_obj.paginator.num_pages }}">Older posts</a></li>
+          </ul>
+        </div>
+        {% endif %}
+        {% endif %}
+      </div>
+      <div class="sidebarRight">
+        <div class="sidebar-widget">
+          <h3>About Art Interactivities</h3>
+          <div class="aboutMeWidget">
+            <img src="http://placehold.it/160x160/8acace/ffffff" alt="Ai img">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt</p>
+          </div>
+        </div>
+        <div class="sidebar-widget">
+          <h3>follow me</h3>
+          <div class="followMeSocialLinks">
+            <a href="#"><i class="fa fa-instagram"></i></a>
+            <span></span>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <span></span>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <span></span>
+            <a href="#"><i class="fa fa-heart"></i></a>
+            <span></span>
+            <a href="#"><i class="fa fa-pinterest"></i></a>
+            <span></span>
+            <a href="#"><i class="fa fa-google-plus"></i></a>
+          </div>
+        </div>
+        <div class="sidebar-widget">
+          <a class="infoBox" href="#">
+            <img src="http://placehold.it/270x270/8acace/ffffff" alt="Ai img">
+          </a>
+        </div>
+        <div class="sidebar-widget">
+          <h3>popular posts</h3>
+          <div class="popularPostsWidget">
+            <div class="popularPostsWidgetItem">
+              <a href="" class="popularPostsItemImg"><img src="http://placehold.it/60x60/8acace/ffffff"
+                  alt="Ai img"></a>
+              <time datetime="2021-05-15">15.05.2021</time>
+              <h4><a href="#">MY BEDSIDE TABLE: THE CURATOR</a></h4>
+            </div>
+            <div class="popularPostsWidgetItem">
+              <a href="" class="popularPostsItemImg"><img src="http://placehold.it/60x60/8acace/ffffff"
+                  alt="Ai img"></a>
+              <time datetime="2021-05-15">15.05.2021</time>
+              <h4><a href="#">MY BEDSIDE TABLE: THE CURATOR</a></h4>
+            </div>
+            <div class="popularPostsWidgetItem">
+              <a href="" class="popularPostsItemImg"><img src="http://placehold.it/60x60/8acace/ffffff"
+                  alt="Ai img"></a>
+              <time datetime="2021-05-15">15.05.2021</time>
+              <h4><a href="#">MY BEDSIDE TABLE: THE CURATOR</a></h4>
+            </div>
+            <div class="popularPostsWidgetItem">
+              <a href="" class="popularPostsItemImg"><img src="http://placehold.it/60x60/8acace/ffffff"
+                  alt="Ai img"></a>
+              <time datetime="2021-05-15">15.05.2021</time>
+              <h4><a href="#">MY BEDSIDE TABLE: THE CURATOR</a></h4>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-widget">
+          <h3>twitter</h3>
+          <div class="twitterWidget">
+            <i class="fa fa-twitter"></i>
+            <br>
+            <a class="twitterUsername" href="#">@Ai</a>
+            <div class="twitterWidgetSlider">
+              <div class="twitterSliderItem">
+                <span class="left-quote">“</span>
+                <span class="right-quote">”</span>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt</p>
+                <time datetime="2021-05-18">1 day ago</time>
+              </div>
+              <div class="twitterSliderItem">
+                <span class="left-quote">“</span>
+                <span class="right-quote">”</span>
+                <p>Consectetur adipisicing elit, lorem ipsum dolor sit amet, sed do eiusmod tempor incididunt</p>
+                <time datetime="2021-05-18">2 days ago</time>
+              </div>
+              <div class="twitterSliderItem">
+                <span class="left-quote">“</span>
+                <span class="right-quote">”</span>
+                <p>Adipisicing lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt</p>
+                <time datetime="2021-05-18">3 days ago</time>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-widget">
+          <h3>instagram</h3>
+          <div class="instagramWidget clear">
+            <a href="" class="instagramWidgetItem">
+              <img src="http://placehold.it/83x83/8acace/ffffff" alt="Ai img">
+            </a>
+            <a href="" class="instagramWidgetItem">
+              <img src="http://placehold.it/83x83/8acace/ffffff" alt="Ai img">
+            </a>
+            <a href="" class="instagramWidgetItem">
+              <img src="http://placehold.it/83x83/8acace/ffffff" alt="Ai img">
+            </a>
+            <a href="" class="instagramWidgetItem">
+              <img src="http://placehold.it/83x83/8acace/ffffff" alt="Ai img">
+            </a>
+            <a href="" class="instagramWidgetItem">
+              <img src="http://placehold.it/83x83/8acace/ffffff" alt="Ai img">
+            </a>
+            <a href="" class="instagramWidgetItem">
+              <img src="http://placehold.it/83x83/8acace/ffffff" alt="Ai img">
+            </a>
+            <a href="" class="instagramWidgetItem">
+              <img src="http://placehold.it/83x83/8acace/ffffff" alt="Ai img">
+            </a>
+            <a href="" class="instagramWidgetItem">
+              <img src="http://placehold.it/83x83/8acace/ffffff" alt="Ai img">
+            </a>
+            <a href="" class="instagramWidgetItem">
+              <img src="http://placehold.it/83x83/8acace/ffffff" alt="Ai img">
+            </a>
+          </div>
+        </div>
+        <div class="sidebar-widget">
+          <h3>Tag cloud</h3>
+          <div class="tagcloud">
+            <a href="#">Music</a>
+            <a href="#">Beauty</a>
+            <a href="#">Creative</a>
+            <a href="#">Experience</a>
+            <a href="#">Adventures</a>
+          </div>
+        </div>
+        <div class="sidebar-widget">
+          <h3>subscribe</h3>
+          <div class="subscribeWidget">
+            <p>Follow my latest news</p>
+            <form action="index.html">
+              <input class="" type="text" name="" size="32" value="" placeholder="Your email">
+              <input class="subscribeWidgetSubmit" type="submit" value="Submit">
+              <span></span>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clear"></div>
+    <div class="ourInstagram">
+      <div id="sb_instagram">
+        <div class="sb_instagram_header">
+          <a href="#" class="sbi_header_link">Follow on instagram</a>
+        </div>
+        <div id="sbi_images">
+          <div class="sbi_item sbi_type_image">
+            <div class="sbi_photo_wrap">
+              <a href="#" class="sbi_photo">
+                <img src="http://placehold.it/273x273/8acace/ffffff" alt="Ai img">
+              </a>
+            </div>
+          </div>
+          <div class="sbi_item sbi_type_image">
+            <div class="sbi_photo_wrap">
+              <a href="#" class="sbi_photo">
+                <img src="http://placehold.it/273x273/8acace/ffffff" alt="Ai img">
+              </a>
+            </div>
+          </div>
+          <div class="sbi_item sbi_type_image">
+            <div class="sbi_photo_wrap">
+              <a href="#" class="sbi_photo">
+                <img src="http://placehold.it/273x273/8acace/ffffff" alt="Ai img">
+              </a>
+            </div>
+          </div>
+          <div class="sbi_item sbi_type_image">
+            <div class="sbi_photo_wrap">
+              <a href="#" class="sbi_photo">
+                <img src="http://placehold.it/273x273/8acace/ffffff" alt="Ai img">
+              </a>
+            </div>
+          </div>
+          <div class="sbi_item sbi_type_image">
+            <div class="sbi_photo_wrap">
+              <a href="#" class="sbi_photo">
+                <img src="http://placehold.it/273x273/8acace/ffffff" alt="Ai img">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer id="footer">
+    <div class="footerSocial">
+      <div class="wrapper clear">
+        <div class="footerSocialItem">
+          <a href="#" class="">
+            <i class="fa fa-instagram"></i>
+            Instagram <br>
+            10 537
+          </a>
+        </div>
+        <div class="footerSocialItem">
+          <a href="#" class="">
+            <i class="fa fa-facebook"></i>
+            facebook <br>
+            103 537
+          </a>
+        </div>
+        <div class="footerSocialItem">
+          <a href="#" class="">
+            <i class="fa fa-twitter"></i>
+            Twitter <br>
+            27 129
+          </a>
+        </div>
+        <div class="footerSocialItem">
+          <a href="#" class="">
+            <i class="fa fa-heart"></i>
+            bloglovin <br>
+            98 122
+          </a>
+        </div>
+        <div class="footerSocialItem">
+          <a href="#" class="">
+            <i class="fa fa-pinterest"></i>
+            Pinterest <br>
+            10 641
+          </a>
+        </div>
+        <div class="footerSocialItem">
+          <a href="#" class="">
+            <i class="fa fa-google-plus"></i>
+            google + <br>
+            17 324
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="wrapper">
+      <ul class="footerMenu">
+        <li><a href="category.html">Lyfestyle</a></li>
+        <li><a href="category.html">travel</a></li>
+        <li><a href="category.html">fashion</a></li>
+        <li><a href="category.html">Inspiration</a></li>
+        <li><a href="about.html">about</a></li>
+        <li><a href="contact.html">contact</a></li>
+      </ul>
+      <p class="copyright">© 2021 Ai</p>
+    </div>
+  </footer>
+  <div class="mobileMenu">
+    <div class="mobileSearch">
+      <form action="index.html">
+        <input class="" type="text" name="" size="32" value="" placeholder="Search">
+        <input class="" type="submit" value="">
+      </form>
+    </div>
+    <ul>
+      <li class="current-menu-item">
+        <a href="index.html">home</a>
+        <ul>
+          <li><a href="index-slider.html">Home slider</a></li>
+          <li><a href="index-fullsize.html">Home fullsize</a></li>
+          <li><a href="index-masonry.html">Home masonry</a></li>
+          <li><a href="index-grid.html">Home grid</a></li>
+          <li><a href="index-list.html">Home list </a></li>
+          <li><a href="404.html">404 page</a></li>
+          <li><a href="single-post.html">Single post</a></li>
+        </ul>
+      </li>
+      <li><a href="category.html">lifestyle</a></li>
+      <li>
+        <a href="category.html">travel</a>
+        <ul>
+          <li><a href="#">Submenu one</a></li>
+          <li><a href="#">Submenu two</a></li>
+          <li><a href="#">Submenu three</a></li>
+          <li class="menu-item-has-children">
+            <a href="#">Submenu four</a>
+            <ul>
+              <li><a href="#">Submenu one</a></li>
+              <li><a href="#">Submenu two</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="category.html">fashion</a></li>
+      <li><a href="category.html">inspiration</a></li>
+      <li><a href="about.html">about</a></li>
+      <li><a href="contact.html">contact</a></li>
+    </ul>
+    <div class="mobileSocial clear">
+      <a href="#"><i class="fa fa-instagram"></i></a>
+      <a href="#"><i class="fa fa-facebook"></i></a>
+      <a href="#"><i class="fa fa-twitter"></i></a>
+      <a href="#"><i class="fa fa-heart"></i></a>
+      <a href="#"><i class="fa fa-pinterest"></i></a>
+      <a href="#"><i class="fa fa-google-plus"></i></a>
+    </div>
+  </div>
+  <div class="searchPopup">
+    <span class="closeBtn"></span>
+    <div class="wrapper">
+      <form action="index.html">
+        <input class="" type="text" name="" size="32" value="" placeholder="Search">
+      </form>
+    </div>
+  </div>
+  <script type="text/javascript" src="{% static 'js/jquery-1.11.3.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/jquery.bxslider.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+  <!-- Optional JavaScript -->
+  <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>
